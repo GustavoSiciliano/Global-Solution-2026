@@ -1,7 +1,8 @@
 # AgroSat — Artificial Intelligence & Chatbot
 ### Global Solution 2026/1 — FIAP | Análise e Desenvolvimento de Sistemas
 
-**GitHub:** https://github.com/GustavoSiciliano/Global-Solution-2026
+**GitHub:** https://github.com/GustavoSiciliano/Global-Solution-2026  
+**Deploy:** https://gs-ia.onrender.com
 
 ---
 
@@ -156,6 +157,21 @@ Content-Type: application/json
   "nivel_alerta": "CRITICO"
 }
 ```
+
+---
+
+## Deploy
+
+**URL:** https://gs-ia.onrender.com
+
+| Endpoint | Link direto |
+|----------|------------|
+| Status da API | https://gs-ia.onrender.com/health |
+| Modelos disponíveis | https://gs-ia.onrender.com/modelos |
+| Regiões monitoradas | https://gs-ia.onrender.com/regioes |
+| Alertas ativos | https://gs-ia.onrender.com/alertas |
+
+> O serviço gratuito do Render hiberna após 15 minutos sem uso. A primeira requisição pode demorar até 60 segundos para responder.
 
 ---
 
