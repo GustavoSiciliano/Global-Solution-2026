@@ -7,6 +7,14 @@ Disciplina: Artificial Intelligence & Chatbot
 Global Solution 2026/1 - FIAP
 GitHub: https://github.com/GustavoSiciliano/Global-Solution-2026
 
+Deploy: https://gs-ia.onrender.com
+
+Para visualizar a API em funcionamento:
+GET https://gs-ia.onrender.com/health
+GET https://gs-ia.onrender.com/modelos
+GET https://gs-ia.onrender.com/regioes
+GET https://gs-ia.onrender.com/alertas
+
 Descricao:
 Plataforma que utiliza dados de satelites da NASA para monitorar a saude da vegetacao agricola brasileira e prever riscos de seca via Machine Learning.
 
