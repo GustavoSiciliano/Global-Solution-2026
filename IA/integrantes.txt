@@ -1,0 +1,48 @@
+Gustavo Rodrigues Siciliano - RM568419 - 1TDS Agosto
+Gustavo de Jesus Silva - RM567926 - 1TDS Agosto
+Samuel Keniti Kina de Lima - RM567614 - 1TDS Agosto
+
+Projeto: AgroSat - Monitoramento e Risco Agricola via Satelite
+Disciplina: Artificial Intelligence & Chatbot
+Global Solution 2026/1 - FIAP
+GitHub: https://github.com/GustavoSiciliano/Global-Solution-2026
+
+Descricao:
+Plataforma que utiliza dados de satelites da NASA para monitorar a saude da vegetacao agricola brasileira e prever riscos de seca via Machine Learning.
+
+Modelos de ML:
+Modelo 1 - Classificacao: Random Forest Classifier
+  Entrada: ndvi, temperatura, precipitacao, umidade, dias_sem_chuva, radiacao_solar
+  Saida: SAUDAVEL | EM_ESTRESSE | CRITICO
+
+Modelo 2 - Regressao: Random Forest Regressor
+  Entrada: ndvi, temperatura, precipitacao, umidade, dias_sem_chuva, radiacao_solar
+  Saida: risco_hidrico de 0% a 100%
+
+APIs espaciais utilizadas:
+NASA POWER - temperatura, radiacao_solar - https://power.larc.nasa.gov/api/temporal/daily/point
+NASA FIRMS - focos_calor - https://firms.modaps.eosdis.nasa.gov/api/area/csv
+Open-Meteo - precipitacao, umidade, dias_sem_chuva - https://api.open-meteo.com/v1/forecast
+INPE TerraBrasilis - areas_desmatamento - https://terrabrasilis.dpi.inpe.br/geoserver/ows
+NASA EarthData - ndvi estimado por bioma - https://earthdata.nasa.gov
+Copernicus ESA - dados climaticos e de solo - https://cds.climate.copernicus.eu/api/v2
+
+Banco: Oracle FIAP - oracle.fiap.com.br:1521/orcl
+
+Endpoints da API:
+GET /health
+GET /modelos
+GET /regioes
+GET /alertas
+GET /regioes/<id>/previsoes
+POST /predict/<modelo>
+POST /predict/completo
+POST /regioes/<id>/monitorar
+
+Pipeline de execucao:
+1. python modelos/classificacao.py
+2. python modelos/regressao.py
+3. python app.py
+4. gunicorn app:app (deploy Render)
+
+ODS: 2 - Fome Zero | 13 - Clima | 9 - Inovacao

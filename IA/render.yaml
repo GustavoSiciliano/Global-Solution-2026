@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: agrosat-ia
+    env: python
+    buildCommand: pip install -r requirements.txt && python modelos/classificacao.py && python modelos/regressao.py
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: DB_HOST
+        value: oracle.fiap.com.br
+      - key: DB_PORT
+        value: 1521
+      - key: DB_NAME
+        value: orcl
+      - key: NASA_FIRMS_KEY
+        sync: false
