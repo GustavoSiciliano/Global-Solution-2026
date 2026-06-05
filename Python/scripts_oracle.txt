@@ -1,0 +1,120 @@
+-- AgroSat -- Scripts Oracle
+-- Computational Thinking Using Python -- Global Solution 2026/1 -- FIAP
+-- Integrantes:
+--   Gustavo Rodrigues Siciliano -- RM568419
+--   Gustavo de Jesus Silva -- RM567926
+--   Samuel Keniti Kina de Lima -- RM567614
+
+Olá professor, se caso você precisar acessar está aqui: 
+Login: RM568419
+Senha: 250204
+
+Mas já está criado e populado com dados :)
+
+-- Fontes satelitais
+CREATE TABLE TB_FONTE_SATELITAL (
+    id_fonte NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nm_fonte VARCHAR2(100) NOT NULL UNIQUE,
+    ds_url VARCHAR2(255) NOT NULL,
+    ds_tipo_dado VARCHAR2(50) NOT NULL,
+    ds_descricao VARCHAR2(255),
+    dt_cadastro DATE DEFAULT SYSDATE NOT NULL
+);
+
+-- Regioes agricolas
+CREATE TABLE TB_REGIAO (
+    id_regiao NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nm_regiao VARCHAR2(100) NOT NULL UNIQUE,
+    ds_estado VARCHAR2(2) NOT NULL,
+    nr_latitude NUMBER(10,6) NOT NULL,
+    nr_longitude NUMBER(10,6) NOT NULL,
+    ds_bioma VARCHAR2(50),
+    dt_cadastro DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT chk_estado CHECK (ds_estado IN (
+        'AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS',
+        'MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC',
+        'SP','SE','TO'
+    ))
+);
+
+-- Usuarios
+CREATE TABLE TB_USUARIO (
+    id_usuario NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nm_usuario VARCHAR2(100) NOT NULL,
+    ds_email VARCHAR2(150) NOT NULL UNIQUE,
+    ds_senha VARCHAR2(255) NOT NULL,
+    ds_perfil VARCHAR2(20) NOT NULL,
+    dt_cadastro DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT chk_perfil CHECK (ds_perfil IN ('ADMIN','PRODUTOR','GESTOR'))
+);
+
+-- Vinculo N:N entre regioes e usuarios
+CREATE TABLE TB_REGIAO_USUARIO (
+    id_regiao_usuario NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_regiao NUMBER NOT NULL,
+    id_usuario NUMBER NOT NULL,
+    dt_vinculo DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT fk_ru_regiao FOREIGN KEY (id_regiao) REFERENCES TB_REGIAO(id_regiao),
+    CONSTRAINT fk_ru_usuario FOREIGN KEY (id_usuario) REFERENCES TB_USUARIO(id_usuario),
+    CONSTRAINT uq_regiao_usuario UNIQUE (id_regiao, id_usuario)
+);
+
+-- Leituras satelitais
+CREATE TABLE TB_LEITURA_SATELITAL (
+    id_leitura NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_regiao NUMBER NOT NULL,
+    id_fonte NUMBER NOT NULL,
+    nr_ndvi NUMBER(5,4),
+    nr_temperatura NUMBER(5,2),
+    nr_precipitacao NUMBER(8,2),
+    nr_umidade NUMBER(5,2),
+    nr_dias_sem_chuva NUMBER(3),
+    nr_radiacao_solar NUMBER(8,2),
+    dt_leitura DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT fk_ls_regiao FOREIGN KEY (id_regiao) REFERENCES TB_REGIAO(id_regiao),
+    CONSTRAINT fk_ls_fonte FOREIGN KEY (id_fonte) REFERENCES TB_FONTE_SATELITAL(id_fonte),
+    CONSTRAINT chk_ndvi CHECK (nr_ndvi BETWEEN -1 AND 1),
+    CONSTRAINT chk_umidade CHECK (nr_umidade BETWEEN 0 AND 100),
+    CONSTRAINT chk_dias CHECK (nr_dias_sem_chuva >= 0)
+);
+
+-- Previsoes ML
+CREATE TABLE TB_PREVISAO (
+    id_previsao NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_leitura NUMBER NOT NULL,
+    ds_status_vegetacao VARCHAR2(20) NOT NULL,
+    nr_risco_hidrico NUMBER(5,2),
+    ds_modelo_usado VARCHAR2(50) NOT NULL,
+    dt_previsao DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT fk_prev_leitura FOREIGN KEY (id_leitura) REFERENCES TB_LEITURA_SATELITAL(id_leitura),
+    CONSTRAINT chk_status CHECK (ds_status_vegetacao IN ('SAUDAVEL','EM_ESTRESSE','CRITICO')),
+    CONSTRAINT chk_risco CHECK (nr_risco_hidrico BETWEEN 0 AND 100)
+);
+
+-- Alertas automaticos
+CREATE TABLE TB_ALERTA (
+    id_alerta NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_previsao NUMBER NOT NULL,
+    id_regiao NUMBER NOT NULL,
+    ds_nivel VARCHAR2(20) NOT NULL,
+    ds_mensagem VARCHAR2(500) NOT NULL,
+    fl_resolvido CHAR(1) DEFAULT 'N' NOT NULL,
+    dt_alerta DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT fk_al_previsao FOREIGN KEY (id_previsao) REFERENCES TB_PREVISAO(id_previsao),
+    CONSTRAINT fk_al_regiao FOREIGN KEY (id_regiao) REFERENCES TB_REGIAO(id_regiao),
+    CONSTRAINT chk_nivel CHECK (ds_nivel IN ('BAIXO','MEDIO','ALTO','CRITICO')),
+    CONSTRAINT chk_resolvido CHECK (fl_resolvido IN ('S','N'))
+);
+
+-- Historico de acoes sobre alertas
+CREATE TABLE TB_HISTORICO_ALERTA (
+    id_historico NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_alerta NUMBER NOT NULL,
+    id_usuario NUMBER NOT NULL,
+    ds_acao VARCHAR2(100) NOT NULL,
+    ds_observacao VARCHAR2(500),
+    dt_acao DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT fk_ha_alerta FOREIGN KEY (id_alerta) REFERENCES TB_ALERTA(id_alerta),
+    CONSTRAINT fk_ha_usuario FOREIGN KEY (id_usuario) REFERENCES TB_USUARIO(id_usuario),
+    CONSTRAINT chk_acao CHECK (ds_acao IN ('VISUALIZADO','RECONHECIDO','RESOLVIDO','IGNORADO'))
+);
