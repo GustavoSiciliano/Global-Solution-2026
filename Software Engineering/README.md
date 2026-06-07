@@ -156,7 +156,7 @@ Os diagramas de Atividades e Casos de Uso foram desenvolvidos no ASTAH e estão 
 
 Vídeo de até 3 minutos publicado no YouTube apresentando o problema, a solução, a tecnologia e o impacto nos ODS 2, 9 e 13.
 
-**Link:** *(inserir após gravação)*
+**Link:** https://youtu.be/qEldtQdF1Ms
 
 ---
 
