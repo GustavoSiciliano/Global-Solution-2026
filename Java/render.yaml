@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: agrosat-java
-    runtime: docker
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: JAVA_OPTS
-        value: "-Xmx256m -Xms128m"
