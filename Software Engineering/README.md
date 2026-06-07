@@ -17,9 +17,8 @@
 ## Links
 
 - **GitHub:** https://github.com/GustavoSiciliano/Global-Solution-2026
-- **Deploy API IA:** https://gs-ia.onrender.com
 - **Trello:** https://share.google/GgeFrRvZeReVVURDa
-- **Pitch:** *(link do YouTube após gravação)*
+- **Pitch:** https://youtu.be/qEldtQdF1Ms
 
 ---
 
