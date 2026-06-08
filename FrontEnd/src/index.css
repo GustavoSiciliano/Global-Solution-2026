@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f5f5f2;
+  color: #1c1c1a;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f2;
+}
+::-webkit-scrollbar-thumb {
+  background: #cacac4;
+  border-radius: 3px;
+}
+
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+  background: rgba(245, 245, 242, 0.82);
+}
+
+.badge-BAIXO {
+  background: #ebf5ef;
+  color: #1e6640;
+  border: 1px solid #a8d9ba;
+}
+.badge-MEDIO {
+  background: #fef9ec;
+  color: #7a5c00;
+  border: 1px solid #e8cc70;
+}
+.badge-ALTO {
+  background: #fef1e8;
+  color: #8c3a00;
+  border: 1px solid #f0a878;
+}
+.badge-CRITICO {
+  background: #fee8e8;
+  color: #8c0000;
+  border: 1px solid #f0a0a0;
+}
+.badge-SAUDAVEL {
+  background: #ebf5ef;
+  color: #1e6640;
+  border: 1px solid #a8d9ba;
+}
+.badge-EM_ESTRESSE {
+  background: #fef9ec;
+  color: #7a5c00;
+  border: 1px solid #e8cc70;
+}
+
+.hero-gradient {
+  background: linear-gradient(160deg, #ebf5ef 0%, #f5f5f2 55%);
+}
+
+.stat-card-green {
+  border-left: 3px solid #2e7d4f;
+}
+.stat-card-yellow {
+  border-left: 3px solid #d4a017;
+}
+.stat-card-red {
+  border-left: 3px solid #b83232;
+}
+.stat-card-blue {
+  border-left: 3px solid #2e6ea0;
+}
+
+.section-dark {
+  background: #1c2a1f;
+  color: #e8f2eb;
+}
