@@ -1,3 +1,4 @@
+//Comparativo
 import { useState, useEffect } from "react";
 import { javaApi } from "../services/api";
 import type { RegiaoComPrevisao } from "../types";
