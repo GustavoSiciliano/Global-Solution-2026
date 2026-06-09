@@ -138,7 +138,7 @@ npm run build
 |---------|-----|
 | 📁 Repositório GitHub | https://github.com/GustavoSiciliano/Global-Solution-2026 |
 | 🎬 Vídeo YouTube | https://youtu.be/prsl2J08fCo |
-| 🌐 Deploy Vercel | https://agrosat.vercel.app |
+| 🌐 Deploy Vercel | https://global-solution-2026.vercel.app |
 | ☕ API Java (Render) | https://global-solution-2026.onrender.com |
 | 🤖 API Flask IA (Render) | https://gs-ia.onrender.com |
 | 📋 Trello | https://trello.com/b/y3VQzMc5/agrosat |
