@@ -1,3 +1,4 @@
+//Clima
 import { useState, useEffect } from "react";
 import {
   fetchClimaTodasRegioes,
